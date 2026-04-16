@@ -1,233 +1,405 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal Portfolio | @user</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #1e1e2e;
-            --fg-color: #cdd6f4;
-            --mint-aqua: #491a5f;
-            --purple: #cba6f7;
-            --yellow: #f9e2af;
-            --red: #f38ba8;
-            --blue: #89b4fa;
-            --gray: #45475a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Portfolio | @User</title>
 
-        body {
-            background-color: #11111b; /* Fondo exterior */
-            color: var(--fg-color);
-            font-family: 'Fira Code', monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
+<link rel="icon" href="icono.ico" type="image/x-icon">
 
-        .terminal-window {
-            background-color: var(--bg-color);
-            width: 100%;
-            max-width: 900px;
-            border-radius: 8px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
 
-        /* Barra superior de la ventana */
-        .title-bar {
-            background-color: #181825;
-            padding: 10px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-        }
+<style>
+:root {
+    --bg-color: #1a1a2e;
+    --fg-color: #e0def4;
 
-        .dots { display: flex; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: var(--red); }
-        .yellow { background: var(--yellow); }
-        .green { background: var(--mint-aqua); }
+    --purple: #c4a7e7;
+    --purple-strong: #7f5af0;
 
-        /* Contenido del terminal */
-        .content {
-            padding: 30px;
-            line-height: 1.5;
-        }
+    --mint-aqua: #7dcfff;
+    --yellow: #e0af68;
+    --red: #f7768e;
+    --blue: #9f7aea;
 
-        /* Estilo Neofetch */
-        .neofetch-header {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
+    --gray: #908caa;
+}
 
-        .ascii-art {
-            color: var(--mint-aqua);
-            white-space: pre;
-            font-weight: bold;
-        }
 
-        .sys-info span { color: var(--mint-aqua); font-weight: bold; }
-        .sys-info p { margin: 4px 0; }
+body {
 
-        /* Comandos y Secciones */
-        .prompt { color: var(--purple); font-weight: bold; }
-        .command { color: var(--fg-color); margin-bottom: 15px; }
+    background-color: #0f0f1a;
+    color: var(--fg-color);
+    font-family: 'Fira Code', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
 
-        .project-card {
-            border: 1px solid var(--gray);
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 4px;
-            background: rgba(255,255,255,0.02);
-        }
+.terminal-window {
+    background-color: var(--bg-color);
+    width: 100%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(127, 90, 240, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
 
-        .tag {
-            display: inline-block;
-            background: var(--gray);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-right: 5px;
-        }
+.title-bar {
+    background-color: #161625;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        /* Barra de estado inferior (estilo tmux) */
-        .status-bar {
-            background: #181825;
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            margin-top: auto;
-        }
+.dots { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.red { background: var(--red); }
+.yellow { background: var(--yellow); }
+.green { background: var(--mint-aqua); }
 
-        .status-left { background: var(--mint-aqua); color: #11111b; padding: 5px 15px; font-weight: bold; }
-        .status-mid { padding: 5px 15px; flex-grow: 1; color: var(--gray); }
-        .status-right { background: var(--blue); color: #11111b; padding: 5px 15px; font-weight: bold; }
+.content {
+    padding: 30px;
+}
 
-        @media (max-width: 600px) {
-            .neofetch-header { grid-template-columns: 1fr; text-align: center; }
-            .ascii-art { display: none; }
-        }
-    </style>
+.neofetch-header {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 25px;
+    margin-bottom: 30px;
+    align-items: start;
+}
+
+.ascii-art {
+    color: var(--purple);
+    white-space: pre;
+    font-size: 6px;
+    line-height: 1;
+    overflow: hidden;
+    opacity: 0.85;
+    max-height: 420px;
+}
+
+.sys-info span {
+    color: var(--purple-strong);
+    font-weight: 600;
+}
+
+.sys-info p {
+    margin: 4px 0;
+}
+
+.prompt {
+    color: var(--purple-strong);
+}
+
+.cursor::after {
+    content: "_";
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%,100% { opacity:1 }
+    50% { opacity:0 }
+}
+
+.project-card {
+    border: 1px solid var(--gray);
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.02);
+    transition: all 0.2s ease;
+}
+
+.project-card:hover {
+    border-color: var(--purple-strong);
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 10px rgba(127, 90, 240, 0.3);
+}
+.tag {
+
+    background: rgba(127, 90, 240, 0.15);
+    color: var(--purple);
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+a {
+    color: var(--purple);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.status-bar {
+
+    background: #161625;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-top: auto;
+}
+
+.status-left {
+    background: var(--mint-aqua);
+    color: #11111b;
+    padding: 5px 15px;
+    font-weight: bold;
+}
+
+.status-mid {
+    padding: 5px 15px;
+    flex-grow: 1;
+    color: var(--gray);
+}
+
+.status-right {
+    background: var(--blue);
+    color: #11111b;
+    padding: 5px 15px;
+    font-weight: bold;
+}
+
+.skills-list {
+    margin: 5px 0 10px 0;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.skills-list li {
+    margin: 4px 0;
+    position: relative;
+}
+
+.skills-list li::before {
+    content: "▸";
+    position: absolute;
+    left: -15px;
+    color: var(--mint-aqua);
+}
+
+.logs {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 15px;
+}
+
+.log-line { margin: 2px 0; }
+.log-ok { color: var(--mint-aqua); }
+.log-info { color: var(--blue); }
+
+@media (max-width: 600px) {
+    .neofetch-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .ascii-art {
+        display: none;
+    }
+}
+</style>
 </head>
+
 <body>
 
 <div class="terminal-window">
-    <div class="title-bar">
-        <div class="dots">
-            <div class="dot red"></div>
-            <div class="dot yellow"></div>
-            <div class="dot green"></div>
-        </div>
-        <div>user@portfolio ~ tmux</div>
-        <div style="width: 40px;"></div>
-    </div>
 
-    <div class="content">
-        <div class="neofetch-header">
-            <div class="ascii-art">
-_____________¶¶¶¶¶¶¶
+<div class="title-bar">
+    <div class="dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+    </div>
+    <div>Fiumgi@portfolio ~ tmux</div>
+    <div style="width:40px;"></div>
+</div>
+
+<div class="content">
+
+<div class="neofetch-header">
+
+<div class="ascii-art">
+_____________¶¶¶¶¶¶¶ 
 ___________¶¶¶______¶¶¶
 _________¶¶¶___________¶¶
 ________¶¶______________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
 _______¶¶___________________¶_______¶¶¶¶¶
 ______¶¶________________________________¶¶¶
-_____¶¶___________________________________¶¶
+_____¶¶___________________________________¶¶ 
 ____¶¶___________________¶¶________________¶¶
-____¶¶___________________¶¶_________________¶
+____¶¶___________________¶¶_________________¶ 
 ___¶¶____________________¶__________________¶
-___¶¶___¶¶__________________________________¶
+___¶¶___¶¶__________________________________¶ 
 __¶¶__¶_¶¶¶¶¶_______________________________¶¶
 __¶¶_¶¶¶¶¶¶¶¶¶______________________________¶¶¶
-__¶__¶¶¶¶¶¶¶¶¶______________________________¶¶¶
+__¶__¶¶¶¶¶¶¶¶¶______________________________¶¶¶ 
 __¶_¶¶¶¶¶¶¶¶¶¶¶¶___________________________¶¶
 __¶_¶¶¶_¶¶¶_¶¶_¶¶_________________________¶¶
-__¶_¶¶_¶¶¶¶¶¶¶¶_¶_______________________¶¶
-__¶_¶¶__¶¶¶¶¶¶¶_¶¶___¶¶______________¶¶¶¶
-__¶_¶¶__¶¶¶¶¶¶¶_¶¶____¶___________¶¶¶¶
-__¶_¶¶¶¶¶¶¶__¶¶_¶¶_____¶¶¶¶___¶¶¶¶¶
-___¶_¶¶¶¶¶¶__¶¶_¶__________¶¶¶¶
-___¶¶__¶¶¶¶¶¶¶__¶¶¶¶______¶¶¶
-____¶¶___¶¶¶___¶¶¶¶¶¶____¶¶
-_____¶¶¶_____¶¶¶____¶_____¶¶¶
-________¶¶¶¶¶¶_____¶¶¶¶¶¶¶¶¶
-____________________¶¶_____¶¶
-____________________¶_______¶¶
-____________________¶________¶¶
-___________________¶¶_________¶¶
-___________________¶____¶¶_____¶¶
-__________________¶¶____¶¶______¶¶
-__________________¶_¶____¶_______¶¶
-_________________¶¶_¶____¶¶______¶¶
-___________¶¶¶¶__¶¶_¶_____¶______¶¶
-____________¶¶¶¶¶¶¶_¶_____¶______¶¶
-_____________¶¶__¶_¶______¶_____¶¶¶___¶¶¶
-_______________¶¶¶_¶___¶__¶_____¶¶__¶¶¶_¶¶
-_____________¶¶__¶_¶¶__¶_¶¶___¶¶___¶¶____¶¶
-____________¶¶¶¶__¶_¶¶¶¶¶_____¶¶__¶¶_____¶¶
-___________¶¶__¶¶¶¶____________¶¶¶_______¶¶
-___________¶¶___¶¶____¶¶¶¶¶_____¶_____¶_¶¶
-____________¶________¶____¶____________¶¶
-____________¶_______¶¶____¶¶______¶¶___¶¶
-____________¶¶_______¶¶___¶¶________¶¶¶¶
-_____________¶¶_______¶¶_¶¶_________¶¶
-_____________¶¶__¶¶____¶¶_________¶¶
-______________¶¶_¶¶_¶__¶_______¶¶¶¶
-_______________¶¶¶__¶¶¶¶¶__¶¶¶¶¶
+__¶_¶¶_¶¶¶¶¶¶¶¶_¶_______________________¶¶ 
+__¶_¶¶__¶¶¶¶¶¶¶_¶¶___¶¶______________¶¶¶¶ 
+__¶_¶¶__¶¶¶¶¶¶¶_¶¶____¶___________¶¶¶¶ 
+__¶_¶¶¶¶¶¶¶__¶¶_¶¶_____¶¶¶¶___¶¶¶¶¶ 
+___¶_¶¶¶¶¶¶__¶¶_¶__________¶¶¶¶ 
+___¶¶__¶¶¶¶¶¶¶__¶¶¶¶______¶¶¶ 
+____¶¶___¶¶¶___¶¶¶¶¶¶____¶¶ 
+_____¶¶¶_____¶¶¶____¶_____¶¶¶ 
+________¶¶¶¶¶¶_____¶¶¶¶¶¶¶¶¶ 
+____________________¶¶_____¶¶ 
+____________________¶_______¶¶ 
+____________________¶________¶¶ 
+___________________¶¶_________¶¶ 
+___________________¶____¶¶_____¶¶ 
+__________________¶¶____¶¶______¶¶ 
+__________________¶_¶____¶_______¶¶ 
+_________________¶¶_¶____¶¶______¶¶ 
+___________¶¶¶¶__¶¶_¶_____¶______¶¶ 
+____________¶¶¶¶¶¶¶_¶_____¶______¶¶ 
+_____________¶¶__¶_¶______¶_____¶¶¶___¶¶¶ 
+_______________¶¶¶_¶___¶__¶_____¶¶__¶¶¶_¶¶ 
+_____________¶¶__¶_¶¶__¶_¶¶___¶¶___¶¶____¶¶ 
+____________¶¶¶¶__¶_¶¶¶¶¶_____¶¶__¶¶_____¶¶ 
+___________¶¶__¶¶¶¶____________¶¶¶_______¶¶ 
+___________¶¶___¶¶____¶¶¶¶¶_____¶_____¶_¶¶ 
+____________¶________¶____¶____________¶¶ 
+____________¶_______¶¶____¶¶______¶¶___¶¶ 
+____________¶¶_______¶¶___¶¶________¶¶¶¶ 
+_____________¶¶_______¶¶_¶¶_________¶¶ 
+_____________¶¶__¶¶____¶¶_________¶¶ 
+______________¶¶_¶¶_¶__¶_______¶¶¶¶ 
+_______________¶¶¶__¶¶¶¶¶__¶¶¶¶¶ 
 _________________¶¶¶¶¶__¶¶¶¶¶
-            </div>
-            <div class="sys-info">
-                <p><span>USER</span>: Fiumgi</p>
-                <p><span>ROLE</span>: Estudiante de 4° Media / Developer </p>
-                <p><span>LOC</span>: Chile</p>
-                <p><span>SKILLS</span>: Python, Linux, Redes. Ingles B2, Pentesting,</p>
-                <p><span>FOCUS</span>: Automatización con python & Pentesting </p>
-                <div style="display:flex; gap: 5px; margin-top:10px;">
-                    <div style="background:var(--red); width:20px; height:20px;"></div>
-                    <div style="background:var(--mint-aqua); width:20px; height:20px;"></div>
-                    <div style="background:var(--yellow); width:20px; height:20px;"></div>
-                    <div style="background:var(--blue); width:20px; height:20px;"></div>
-                    <div style="background:var(--purple); width:20px; height:20px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="prompt">➜ ~/proyectos <span style="color:var(--yellow)">ls -la</span></div>
-        
-        <div class="project-card">
-            <p><strong><span style="color:var(--mint-aqua)">drwxr-xr-x</span> Fungi-Traductor</strong></p>
-            <p>Traductor offline con interfaz gráfica. Utiliza una arquitectura MVC para separar la lógica de traducción (Argos Translate) de la UI en Tkinter.</p>
-            <div>
-                <span class="tag">Python</span>
-                <span class="tag">Argos Translate</span>
-                <span class="tag">MVC</span>
-                <span class="tag">TTS</span>
-            </div>
-            <p style="font-size: 0.9em; color: #a6adc8; margin-top: 10px;">
-                > Características: Detección automática de idioma y síntesis de voz integrada.
-            </p>
-        </div>
-
-        <br>
-        <div class="prompt">➜ ~/contacto <span style="color:var(--yellow)">cat info.txt</span></div>
-        <p>¿Interesado en colaborar? Encuéntrame en GitHub o vía terminal. :D</p>
-    </div>
-
-    <div class="status-bar">
-        <div class="status-left"> 0:zsh </div>
-        <div class="status-mid"> portfolio.html* </div>
-        <div class="status-right"> RAM 2.4GB/8GB </div>
-    </div>
 </div>
+
+<div class="sys-info">
+<p><span>USER</span>: Fiumgi</p>
+<p><span>ROLE</span>: Estudiante / Developer</p>
+<p><span>FROM</span>: Chile</p>
+
+<p><span>SKILLS</span>:</p>
+<ul class="skills-list">
+<li><strong>Inglés B2</strong></li>
+<li><strong>Python</strong> (Tkinter, MVC, CLI Tools)</li>
+<li><strong>Linux</strong> (bash, networking )</li>
+<li><strong>Ciberseguridad</strong> (Pentesting basico, OSINT, recon, Redes)</li>
+</ul>
+
+<p><span>FOCUS</span>: Automatización & Ciberseguridad</p>
+</div>
+
+</div>
+
+<div class="prompt">➜ ~/proyectos ls -la</div>
+
+<div class="project-card">
+<p><strong><span style="color:var(--mint-aqua)">drwxr-xr-x</span> Fungi-Traductor</strong></p>
+<p>Traductor offline con interfaz gráfica basado en arquitectura MVC usando Argos
+Translate y Tkinter.</p>
+
+<div>
+<span class="tag">Python</span>
+<span class="tag">MVC</span>
+<span class="tag">TTS</span>
+</div>
+
+<p style="font-size:0.9em; color:#a6adc8;">
+> Traducción sin conexión + voz
+</p>
+
+<p>
+<a href="https://github.com/fiumgi/Fungi-Traductor" target="_blank" rel="noopener noreferrer">
+Ver en GitHub →
+</a>
+</p>
+</div>
+
+<div id="system-logs" class="logs"></div>
+
+<div class="prompt cursor">➜ ~/contacto cat info.txt</div>
+
+<p>
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=danielmedina.4125@gmail.com&su=Contacto" target="_blank" rel="noopener noreferrer">
+📧 danielmedina.4125@gmail.com
+</a><br>
+
+<a href="https://github.com/fiumgi" target="_blank" rel="noopener noreferrer">
+🐙 GitHub
+</a>
+</p>
+
+</div>
+
+<div class="status-bar">
+<div class="status-left">0:zsh</div>
+<div class="status-mid">portfolio.html*</div>
+<div class="status-right" id="status-right"></div>
+</div>
+
+</div>
+
+<script>
+const logs = [
+"[INFO] Initializing portfolio...",
+"[OK] UI loaded",
+"[OK] Projects indexed",
+"[OK] Terminal ready"
+];
+
+const logContainer = document.getElementById("system-logs");
+
+let i = 0;
+
+function printLog() {
+    if (!logContainer || i >= logs.length) return;
+
+    const line = document.createElement("div");
+    line.classList.add("log-line");
+
+    if (logs[i].includes("OK")) line.classList.add("log-ok");
+    else line.classList.add("log-info");
+
+    line.textContent = logs[i];
+    logContainer.appendChild(line);
+
+    i++;
+    setTimeout(printLog, 300);
+}
+
+let startTime = Date.now();
+
+function getUptime() {
+    return Math.floor((Date.now() - startTime) / 1000) + "s";
+}
+
+function updateStatus() {
+    const ram = (Math.random() * 4 + 2).toFixed(1);
+    const time = new Date().toLocaleTimeString();
+    const uptime = getUptime();
+
+    document.getElementById("status-right").textContent =
+        `RAM ${ram}GB/8GB | ${time} | ↑ ${uptime}`;
+}
+
+window.onload = () => {
+    printLog();
+    updateStatus();
+    setInterval(updateStatus, 1000);
+};
+</script>
 
 </body>
 </html>
