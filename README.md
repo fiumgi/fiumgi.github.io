@@ -65,12 +65,7 @@ Traductor offline con interfaz gráfica basado en arquitectura MVC.
 
 ## ⚡ Futuras mejoras
 
-- Terminal interactiva con comandos (`help`, `projects`, etc.)  
 - Sistema de temas dinámicos  
 - Más proyectos y herramientas CLI  
 
 ---
-
-## 📄 Licencia
-
-Uso personal y educativo.
